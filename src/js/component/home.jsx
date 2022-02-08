@@ -12,16 +12,25 @@ const Home = () => {
 		console.log(listatareas);
 	}, [listatareas]);
 
+	// funcion que valida que el campo tarea no este vacio y vaya llenanod el arreglo lista tareas
+	const validatetareas = () => {
+		// === COMPARACIÓN ESTRICTA
+		if (tarea === "") {
+			console.log("El campo tarea no debe estar vacio");
+		} else {
+			console.log("perfect!");
+		}
+	};
+
 	return (
 		<>
-			<div className="text-center mt-5">
+			<div className="text-center mt-5 mx-5">
 				<h1>TO DO LIST</h1>
 				<p></p>
 				<a href="#" className="btn btn-success">
-					HOLA YO SERE UN INPUT{" "}
+					@alonatt{" "}
 				</a>
-				<p>Agregare tareas </p>
-
+				<p>Pendientes</p>
 				<div className="partedelinput">
 					<input
 						type="text"
@@ -30,7 +39,7 @@ const Home = () => {
 					/>
 					<div>
 						<button
-							className="boton"
+							className="btn btn-success"
 							onClick={() => {
 								setListaTareas([...listatareas, tarea]);
 								console.log(listatareas);
@@ -39,19 +48,33 @@ const Home = () => {
 						</button>
 					</div>
 				</div>
+				<div>
+					{listatareas.map((valor, posicion) => {
+						return (
+							<div
+								key={posicion}
+								className="alert alert-info"
+								role="alert">
+								{valor}
+								<button
+									className="btn btn-light"
+									type="button"
+									onClick={() => {
+										const listaNueva = listatareas.filter(
+											key => key !== valor
+										);
+										setListaTareas(listaNueva);
+										console.log(listaNueva);
+										console.log("hola");
+										//console.log(entrada)
+									}}>
+									<i className="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						);
+					})}
+				</div>{" "}
 			</div>
-			<div>
-				{listatareas.map((valor, posicion) => {
-					return (
-						<div
-							key={posicion}
-							className="alert alert-info"
-							role="alert">
-							{valor}
-						</div>
-					);
-				})}
-			</div>{" "}
 		</>
 	);
 };
